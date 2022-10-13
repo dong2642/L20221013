@@ -1,16 +1,17 @@
 #include "Floor.h"
-#include <iostream>
-
-using namespace std;
-
 
 AFloor::AFloor()
 {
 	Shape = ' ';
 }
 
+AFloor::AFloor(int NewX, int NewY)
+	: AFloor()
+{
+	X = NewX;
+	Y = NewY;
+}
+
 AFloor::~AFloor()
 {
 }
-
-

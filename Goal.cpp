@@ -1,11 +1,15 @@
 #include "Goal.h"
-#include <iostream>
-
-using namespace std;
 
 AGoal::AGoal()
 {
 	Shape = 'G';
+}
+
+AGoal::AGoal(int NewX, int NewY)
+	: AGoal()
+{
+	X = NewX;
+	Y = NewY;
 }
 
 AGoal::~AGoal()

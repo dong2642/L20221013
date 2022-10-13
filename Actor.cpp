@@ -1,27 +1,38 @@
 #include "Actor.h"
 #include <iostream>
-#include <windows.h>
+#include <Windows.h>
 
 using namespace std;
 
 AActor::AActor() :
-	X(1), Y(1), Shape(' ') //초기화 리스트
+	X(1), Y(1), Shape(' ')
 {
-	/*X = 1;
-	Y = 1;
-	Shape = ' ';*/
+	//X = 1;
+	//Y = 1;
+	//Shape = ' ';
+}
+
+AActor::AActor(int NewX, int NewY)
+	: AActor()
+{
+	X = NewX;
+	Y = NewY;
 }
 
 AActor::~AActor()
 {
 }
 
-void AActor::Draw()
+void AActor::Render()
 {
-	COORD Current;
-	Current.X = X;
-	Current.Y = Y;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Current);
+	COORD Currrent;
+	Currrent.X = X;
+	Currrent.Y = Y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Currrent);
 
 	cout << Shape;
+}
+
+void AActor::Tick()
+{
 }
