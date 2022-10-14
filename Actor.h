@@ -13,6 +13,9 @@ public:
 	virtual void Render();
 	virtual void Tick();
 
+	virtual void BeginPlay();
+	virtual void EndPlay();
+
 	int X;
 	int Y;
 

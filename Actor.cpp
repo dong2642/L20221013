@@ -36,3 +36,11 @@ void AActor::Render()
 void AActor::Tick()
 {
 }
+
+void AActor::BeginPlay()
+{	
+}
+
+void AActor::EndPlay()
+{
+}

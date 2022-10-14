@@ -1,5 +1,7 @@
 #include "Player.h"
 #include <iostream>
+#include "Engine.h"
+
 
 using namespace std;
 
@@ -19,7 +21,12 @@ APlayer::~APlayer()
 {
 }
 
-void APlayer::Input()
+void APlayer::Tick()
 {
-	cout << "Input" << endl;
+	cout << Engine::GetKeyCode() << endl;
 }
+
+//void APlayer::Input()
+//{
+//	cout << "Input" << endl;
+//}
