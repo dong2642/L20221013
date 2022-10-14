@@ -5,7 +5,7 @@
 using namespace std;
 
 AActor::AActor() :
-	X(1), Y(1), Shape(' ')
+	X(1), Y(1), Shape(' '), CollisionType(ECollisionType::NoCollision), ZOrder(10)
 {
 	//X = 1;
 	//Y = 1;
@@ -38,9 +38,21 @@ void AActor::Tick()
 }
 
 void AActor::BeginPlay()
-{	
+{
 }
 
 void AActor::EndPlay()
 {
+}
+
+bool AActor::CheckHit(AActor* Other)
+{
+	if((int)Other->CollisionType & (int)ECollisionType::PhysicsOnly)
+	{
+		if (Other->X == X && Other->Y == Y)
+		{
+			return true;
+		}
+	}
+	return false;
 }

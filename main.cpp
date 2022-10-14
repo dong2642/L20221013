@@ -3,34 +3,16 @@
 #include "MyEngine.h"
 
 
-class StaticClass
-{
-public:
-	static int Gold;
-
-	static void Add()
-	{
-	/*	Help = 10;*/
-	}
-	void Inner()
-	{
-		StaticClass::Gold = 1;
-	}
-};
-
-int StaticClass::Gold = 1;
 
 int main()
 {
+	GEngine->Initialize();
 
-	MyEngine* E = new MyEngine();
+	GEngine->Run();
 
-	E->Initialize();
+	GEngine->Terminalize();
 
-	E->Run();
+	delete GEngine;
 
-	E->Terminalize();
-
-	
 	return 0;
 }

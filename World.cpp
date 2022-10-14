@@ -66,9 +66,8 @@ void FWorld::Tick()
 
 void FWorld::BeginPlay()
 {
+	//World BeginPlay
 
-	// World BeginPlay
-	
 	for (auto Value : ActorList)
 	{
 		Value->BeginPlay();
@@ -79,7 +78,9 @@ void FWorld::EndPlay()
 {
 	for (auto Value : ActorList)
 	{
-		Value->EndPlay();
+		Value->EndPlay();;
 	}
+
+	//World EndPlay
 }
 

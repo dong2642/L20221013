@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#pragma once
+#include <vector>
 using namespace std;
 
 class AActor;
@@ -17,8 +19,8 @@ public:
 	void Render();
 	void Tick();
 
-
 	void BeginPlay();
 	void EndPlay();
+
 };
 
