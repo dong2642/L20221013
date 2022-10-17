@@ -6,7 +6,6 @@ class MyEngine : public Engine
 private:
 	MyEngine();
 
-
 public:
 	virtual ~MyEngine();
 
@@ -24,7 +23,7 @@ public:
 		return Instance;
 	}
 
-	//protected:
+//protected:
 	static MyEngine* Instance;
 };
 

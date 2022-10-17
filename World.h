@@ -1,7 +1,5 @@
 #pragma once
 #include <vector>
-#pragma once
-#include <vector>
 using namespace std;
 
 class AActor;

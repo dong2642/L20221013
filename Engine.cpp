@@ -1,12 +1,15 @@
-#include "Engine.h"
-#include <conio.h>
-#include "World.h"
+//#include <conio.h> //_getch()
 #include <fstream>
+#include <algorithm>
+
+#include "Engine.h"
+#include "World.h"
 #include "Player.h"
 #include "Floor.h"
 #include "Wall.h"
 #include "Goal.h"
-#include <algorithm>
+#include "Monster.h"
+
 
 using namespace std;
 
@@ -16,11 +19,36 @@ Engine::Engine()
 {
 	MyWorld = new FWorld();
 	bIsRunning = true;
+
+	SDLInit();
+}
+
+void Engine::SDLInit()
+{
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+	{
+		SDL_Log("SDL_Init_Error");
+		exit(-1);
+	}
+
+	MyWindow = SDL_CreateWindow("MyGame", 100, 100, 600, 600, SDL_WINDOW_VULKAN);
+	MyRenderer = SDL_CreateRenderer(MyWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
+	//MyRenderer = SDL_CreateRenderer(MyWindow, -1, SDL_RENDERER_SOFTWARE | SDL_RENDERER_TARGETTEXTURE);
+}
+
+void Engine::SDLTerm()
+{
+	SDL_DestroyRenderer(MyRenderer);
+	SDL_DestroyWindow(MyWindow);
+
+	SDL_Quit();
 }
 
 Engine::~Engine()
 {
 	delete MyWorld;
+
+	SDLTerm();
 }
 
 void Engine::BeginPlay()
@@ -39,8 +67,10 @@ void Engine::Run()
 
 	while (bIsRunning)
 	{
+		DeltaSeconds = SDL_GetTicks64() - LastTick;
 		Input();
 		Tick();
+		LastTick = SDL_GetTicks64();
 		Render();
 	}
 
@@ -72,6 +102,11 @@ void Engine::Load(string MapFilename)
 				MyWorld->SpawnActor(new APlayer(X, Y));
 				MyWorld->SpawnActor(new AFloor(X, Y));
 			}
+			else if (Data[X] == 'M')
+			{
+				MyWorld->SpawnActor(new AMonster(X, Y));
+				MyWorld->SpawnActor(new AFloor(X, Y));
+			}
 			else if (Data[X] == 'G')
 			{
 				MyWorld->SpawnActor(new AGoal(X, Y));
@@ -85,7 +120,6 @@ void Engine::Load(string MapFilename)
 		Y++;
 	}
 	MapFile.close();
-
 
 	//Sort
 	SortActor();
@@ -115,17 +149,35 @@ vector<AActor*>& Engine::GetAllActors()
 
 void Engine::Input()
 {
-	Engine::KeyCode = _getch();
+	SDL_PollEvent(&MyEvent);
+//	Engine::KeyCode = _getch();
 }
 
 void Engine::Tick()
 {
+	if (MyEvent.type == SDL_QUIT)
+	{
+		bIsRunning = false;
+	}
+
 	MyWorld->Tick();
+
+	SDL_Log("%d", DeltaSeconds);
 }
 
 void Engine::Render()
 {
-	system("cls");
+	//system("cls");
+	SDL_Color BackgroundColor = { 0, 0, 0 ,0 };
+
+	SDL_SetRenderDrawColor(MyRenderer, BackgroundColor.r, BackgroundColor.g, BackgroundColor.b, BackgroundColor.a);
+	SDL_RenderClear(MyRenderer);
+
 
 	MyWorld->Render();
+
+
+	SDL_RenderPresent(MyRenderer);
+
+
 }

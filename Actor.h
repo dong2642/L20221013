@@ -3,13 +3,19 @@
 #ifndef __AACTOR_H__
 #define __AACTOR_H__   
 
+#include "SDL.h"
+#include <string>
+
+using namespace std;
+
 enum class ECollisionType
 {
-	NoCollision			=		0, // 0000 0000
-	QueryOnly			=		1, // 0000 0001
-	PhysicsOnly			=		2, // 0000 0010
-	CollisionEnable		=		(QueryOnly | PhysicsOnly), // 0000 0011
+	NoCollision				=				0,  // 0000 0000
+	QueryOnly				=				1,  // 0000 0001
+	PhysicsOnly				=				2,  // 0000 0010
+	CollisionEnable			=				(QueryOnly | PhysicsOnly),	// 0000 0011
 };
+
 
 class AActor
 {
@@ -41,12 +47,24 @@ public:
 		return (First->ZOrder) < (Second->ZOrder);
 	}
 
-	bool CheckHit(AActor* Other); 
-	
+	bool CheckHit(AActor* Other);
+
 	ECollisionType CollisionType = ECollisionType::NoCollision;
+
+	SDL_Color MyColor;
+
+	int TileSize = 60;
+
+	SDL_Surface* MySurface;
+	SDL_Texture* MyTexture;
+
+	void LoadBMP(string Filename);
+
+	SDL_Color MyColorKey;
+
 };
 
-#endif
 
+#endif
 
 

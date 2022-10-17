@@ -1,11 +1,17 @@
 #pragma once
 #include <string>
-#include<vector>
+#include <vector>
+#include "SDL.h"
+
+#pragma comment(lib, "SDL2main.lib")
+#pragma comment(lib, "SDL2.lib")
+
 
 using namespace std;
 
+
 class FWorld;
-class AActor;
+//class AActor;
 
 //추상 클래스
 class Engine
@@ -31,8 +37,19 @@ public:
 		return KeyCode;
 	}
 
-	vector<AActor*>& GetAllActors();
+	vector<class AActor*>& GetAllActors();
 
+	void SDLInit();
+	void SDLTerm();
+
+	SDL_Window* MyWindow;
+	SDL_Renderer* MyRenderer;
+	SDL_Event MyEvent;
+
+	inline const Uint64 GetWorldDeltaSeconds()
+	{
+		return DeltaSeconds;
+	}
 
 protected:
 
@@ -49,4 +66,8 @@ protected:
 	static int KeyCode;
 
 	bool bIsRunning = true;
+
+	Uint64 LastTick;
+	Uint64 DeltaSeconds;
+
 };
