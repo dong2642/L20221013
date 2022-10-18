@@ -1,5 +1,5 @@
-#include "Monster.h"
 #include <iostream>
+#include "Monster.h"
 #include "MyEngine.h"
 #include "Player.h"
 
@@ -11,18 +11,15 @@ AMonster::AMonster()
 	Shape = 'M';
 	ZOrder = 45;
 	CollisionType = ECollisionType::CollisionEnable;
-	MyColor = { 0, 255, 255, 0 };
+	MyColor = { 255, 0, 0, 0 };
 
 	ElapsedTime = 0;
 	ExecuteTime = 500 + ((rand() % 200) - 100);
-
-	LoadBMP("data/Slime.bmp");
-
-	
+	 
+	LoadBMP("data/slime.bmp");
 }
 
-AMonster::AMonster(int NewX, int NewY)
-	: AMonster()
+AMonster::AMonster(int NewX, int NewY) : AMonster()
 {
 	X = NewX;
 	Y = NewY;
@@ -30,17 +27,16 @@ AMonster::AMonster(int NewX, int NewY)
 
 AMonster::~AMonster()
 {
-
 }
 
 void AMonster::Tick()
 {
-
 	ElapsedTime += GEngine->GetWorldDeltaSeconds();
 	if (ExecuteTime > ElapsedTime)
 	{
 		return;
 	}
+
 	ElapsedTime = 0;
 
 	int Direction = rand() % 4;
@@ -86,8 +82,7 @@ bool AMonster::PredictCanMove()
 	for (AActor* Actor : GEngine->GetAllActors())
 	{
 		if (X == Actor->X && Y == Actor->Y &&
-			dynamic_cast<AMonster*>(Actor) == nullptr &&
-			dynamic_cast<AMonster*>(Actor) != this)
+			dynamic_cast<AMonster*>(Actor) == nullptr)
 		{
 			if (CheckHit(Actor))
 			{
@@ -97,5 +92,5 @@ bool AMonster::PredictCanMove()
 	}
 
 	return true;
-}
 
+}

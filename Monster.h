@@ -1,6 +1,5 @@
 #pragma once
 #include "Actor.h"
-
 class AMonster : public AActor
 {
 public:
@@ -14,5 +13,4 @@ public:
 	Uint64 ElapsedTime = 0;
 	Uint64 ExecuteTime = 0;
 };
-
 

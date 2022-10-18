@@ -3,8 +3,9 @@
 #ifndef __AACTOR_H__
 #define __AACTOR_H__   
 
-#include "SDL.h"
 #include <string>
+#include "SDL.h"
+
 
 using namespace std;
 
@@ -55,13 +56,12 @@ public:
 
 	int TileSize = 60;
 
-	SDL_Surface* MySurface;
-	SDL_Texture* MyTexture;
+	SDL_Surface* MySurface; //RAM
+	SDL_Texture* MyTexture; //VRAM
 
 	void LoadBMP(string Filename);
 
 	SDL_Color MyColorKey;
-
 };
 
 

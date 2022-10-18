@@ -7,8 +7,7 @@ using namespace std;
 
 AActor::AActor() :
 	X(1), Y(1), Shape(' '), CollisionType(ECollisionType::NoCollision), ZOrder(10),
-	MyColor(SDL_Color{ 255, 255, 255, 0 }), TileSize(60), MySurface(nullptr), 
-	MyTexture(nullptr), MyColorKey(SDL_Color{255, 255, 255, 0})
+	MyColor(SDL_Color{ 255, 255, 255, 0 }), TileSize(60), MySurface(nullptr), MyTexture(nullptr), MyColorKey(SDL_Color{255, 255, 255, 0})
 {
 	//X = 1;
 	//Y = 1;
@@ -83,8 +82,9 @@ bool AActor::CheckHit(AActor* Other)
 void AActor::LoadBMP(string Filename)
 {
 	MySurface = SDL_LoadBMP(Filename.c_str());
-	
-	SDL_SetColorKey(MySurface, SDL_TRUE, SDL_MapRGB(MySurface->format, MyColorKey.r, MyColorKey.g, MyColorKey.b));
+
+	SDL_SetColorKey(MySurface, SDL_TRUE,
+		SDL_MapRGB(MySurface->format, MyColorKey.r, MyColorKey.g, MyColorKey.b));
 
 	MyTexture = SDL_CreateTextureFromSurface(GEngine->MyRenderer, MySurface);
 }
